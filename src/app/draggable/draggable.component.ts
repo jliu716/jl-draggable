@@ -38,7 +38,13 @@ export class DraggableComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    // TODO:- what happens when box resizes and the tile is outside the box?
+    // move box if container has shrinked too much
+    if (changes.containerWidth || changes.containerHeight) {
+      const isOutside =
+        this.left + this.width > this.containerWidth ||
+        this.top + this.height > this.containerHeight;
+      if (isOutside) this.move();
+    }
   }
 
   onMouseDown(event: MouseEvent) {
