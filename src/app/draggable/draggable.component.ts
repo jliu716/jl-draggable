@@ -1,20 +1,33 @@
-import { Component, HostListener, Input, OnInit } from "@angular/core";
+import {
+  Component,
+  HostListener,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from "@angular/core";
 
 @Component({
   selector: "jl-draggable",
   templateUrl: "./draggable.component.html",
   styleUrls: ["./draggable.component.less"],
 })
-export class DraggableComponent implements OnInit {
+export class DraggableComponent implements OnChanges {
+  // debug properties
   @Input() DEBUG: boolean = true;
   DEBUG_Y = () => Math.round(this.top);
   DEBUG_X = () => Math.round(this.left);
 
+  // box properties
   @Input("width") width: number = 50;
   @Input("height") height: number = 50;
   @Input("left") left: number = 0;
   @Input("top") top: number = 0;
   @Input("color") color: string = "";
+  private borderWidth: number = 2;
+
+  // parent properties
+  @Input() containerWidth: number = 400;
+  @Input() containerHeight: number = 400;
 
   private mouse!: { x: number; y: number };
   private pointOfClick!: { x0: number; y0: number; x1: number; y1: number };
@@ -24,9 +37,9 @@ export class DraggableComponent implements OnInit {
     return "translate3d(" + this.left + "px," + this.top + "px," + "0px)";
   }
 
-  constructor() {}
-
-  ngOnInit() {}
+  ngOnChanges(changes: SimpleChanges): void {
+    // TODO:- what happens when box resizes and the tile is outside the box?
+  }
 
   onMouseDown(event: MouseEvent) {
     this.isMoving = true;
@@ -52,7 +65,14 @@ export class DraggableComponent implements OnInit {
 
   // calculate new position
   private move() {
-    this.top = this.pointOfClick.y0 + (this.mouse.y - this.pointOfClick.y1);
-    this.left = this.pointOfClick.x0 + (this.mouse.x - this.pointOfClick.x1);
+    // top should between 0 and (boxHeight - myHeight)
+    let top = this.pointOfClick.y0 + (this.mouse.y - this.pointOfClick.y1);
+    top = Math.min(this.containerHeight - this.height - this.borderWidth, top);
+    this.top = Math.max(0 - this.borderWidth, top);
+
+    // left should between 0 and (boxWidth - myWidth)
+    let left = this.pointOfClick.x0 + (this.mouse.x - this.pointOfClick.x1);
+    left = Math.min(this.containerWidth - this.width - this.borderWidth, left);
+    this.left = Math.max(0 - this.borderWidth, left);
   }
 }

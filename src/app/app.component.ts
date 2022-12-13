@@ -6,10 +6,9 @@ import { Component, ElementRef, ViewChild } from "@angular/core";
   styleUrls: ["./app.component.less"],
 })
 export class AppComponent {
-  // TODO:- what happens when box resizes and the tile is outside the box?
   @ViewChild("container") container?: ElementRef;
 
-  DEBUG: boolean = false;
+  DEBUG: boolean = true;
 
   get boxWidth() {
     return this.container?.nativeElement.clientWidth;
