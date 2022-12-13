@@ -4,4 +4,6 @@
   [style.height.px]="height"
   [style.background]="color"
   [style.transform]="transform"
+  (mousedown)="onMouseDown($event)"
+  (window:mouseup)="onMouseUp()"
 ></div>
