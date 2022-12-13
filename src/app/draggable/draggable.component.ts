@@ -6,6 +6,10 @@ import { Component, HostListener, Input, OnInit } from "@angular/core";
   styleUrls: ["./draggable.component.less"],
 })
 export class DraggableComponent implements OnInit {
+  @Input() DEBUG: boolean = true;
+  DEBUG_Y = () => Math.round(this.top);
+  DEBUG_X = () => Math.round(this.left);
+
   @Input("width") width: number = 50;
   @Input("height") height: number = 50;
   @Input("left") left: number = 0;
@@ -48,7 +52,6 @@ export class DraggableComponent implements OnInit {
 
   // calculate new position
   private move() {
-    // console.log(this.pointOfClick);
     this.top = this.pointOfClick.y0 + (this.mouse.y - this.pointOfClick.y1);
     this.left = this.pointOfClick.x0 + (this.mouse.x - this.pointOfClick.x1);
   }

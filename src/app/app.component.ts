@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ElementRef, ViewChild } from "@angular/core";
 
 @Component({
   selector: "app-root",
@@ -6,5 +6,16 @@ import { Component } from "@angular/core";
   styleUrls: ["./app.component.less"],
 })
 export class AppComponent {
-  title = "jl-draggable";
+  // TODO:- what happens when box resizes and the tile is outside the box?
+  @ViewChild("container") container?: ElementRef;
+
+  DEBUG: boolean = false;
+
+  get boxWidth() {
+    return this.container?.nativeElement.clientWidth;
+  }
+
+  get boxHeight() {
+    return this.container?.nativeElement.clientHeight;
+  }
 }

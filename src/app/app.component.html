@@ -1,4 +1,7 @@
-<div class="box">
+<div class="box" #container>
+  <span *ngIf="DEBUG" class="debug-label">
+    box size = {{ boxWidth }} x {{ boxHeight }};
+  </span>
   <jl-draggable
     [width]="100"
     [height]="100"

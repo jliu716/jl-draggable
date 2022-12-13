@@ -6,4 +6,6 @@
   [style.transform]="transform"
   (mousedown)="onMouseDown($event)"
   (window:mouseup)="onMouseUp()"
-></div>
+>
+  <span *ngIf="DEBUG">{{ DEBUG_X() }}, {{ DEBUG_Y() }}</span>
+</div>
