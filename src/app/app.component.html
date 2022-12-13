@@ -1,9 +1,11 @@
+<button (click)="toggleDebug()">DEBUG</button>
 <div class="container" #container>
   <span *ngIf="DEBUG && containerLoaded" class="debug-label">
     box size = {{ boxWidth }} x {{ boxHeight }};
   </span>
   <jl-draggable
     *ngIf="containerLoaded"
+    [DEBUG]="DEBUG"
     [containerHeight]="boxHeight"
     [containerWidth]="boxWidth"
     [width]="100"

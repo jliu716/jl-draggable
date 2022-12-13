@@ -9,7 +9,7 @@ export class AppComponent {
   @ViewChild("container") container?: ElementRef;
   containerLoaded: boolean = false;
 
-  DEBUG: boolean = true;
+  DEBUG: boolean = false;
 
   get boxWidth() {
     return this.container?.nativeElement.clientWidth;
@@ -25,5 +25,9 @@ export class AppComponent {
         this.containerLoaded = true;
       }
     });
+  }
+
+  toggleDebug() {
+    this.DEBUG = !this.DEBUG;
   }
 }
