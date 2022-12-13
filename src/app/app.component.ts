@@ -7,6 +7,7 @@ import { Component, ElementRef, ViewChild } from "@angular/core";
 })
 export class AppComponent {
   @ViewChild("container") container?: ElementRef;
+  containerLoaded: boolean = false;
 
   DEBUG: boolean = true;
 
@@ -16,5 +17,13 @@ export class AppComponent {
 
   get boxHeight() {
     return this.container?.nativeElement.clientHeight;
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      if (this.container !== undefined) {
+        this.containerLoaded = true;
+      }
+    });
   }
 }
